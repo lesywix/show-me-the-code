@@ -10,6 +10,7 @@ import os, sys
 from PIL import Image, ImageOps
 
 
+# 遍历文件夹，返回图片名列表
 def read_all_img(path):
     img_list = []
     path_list = os.listdir(path)
@@ -24,14 +25,14 @@ def read_all_img(path):
     return img_list
 
 
+# 重置图片分辨率
 def resize_img(img_list):
+    # iphone分辨率
     width = 640
     height = 1136
     for i in img_list:
-        print(i)
         with Image.open(i) as img:
             x, y = img.size
-            print(x, y)
             if x > width:
                 y = width * y // x
                 x = width
