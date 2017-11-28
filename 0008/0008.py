@@ -19,7 +19,7 @@ def scrap(url):
         'Accept-Encoding': 'gzip, deflate, br',
         'Accept-Language': 'zh-CN,zh;q=0.9',
     }
-    print('strating parse url: %s...' % url)
+    print('strating to parse url: %s...' % url)
     r = requests.get(url, headers=headers)
     if r.status_code == '200':
         print('getting html successful!')
@@ -28,7 +28,7 @@ def scrap(url):
 
 
 def handle_html(html):
-    print('staring handle html...')
+    print('staring to handle html...')
     soup = bs(html, 'html.parser')
     # print(soup.article.string)
     content = soup.article.get_text('\n', strip=True).strip()
