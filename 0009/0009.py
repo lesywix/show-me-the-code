@@ -20,33 +20,31 @@ def scrap(url):
     }
     print('strating to parse url: %s...' % url)
     r = requests.get(url, headers=headers)
+    # 获取协议和主机域名
     proto = r.url.split('/')[0]
     domain = r.url.split('/')[2]
-    print(proto)
-    print(domain)
     if r.status_code == 200:
         print('getting html successful!')
     html = r.text
 
     print('staring to handle html...')
-    # soup = bs(open(html, encoding='utf-8'), 'html.parser')
     soup = bs(html, 'html.parser')
-    # print(soup.article.string)
-    # content = soup.article.get_text('\n', strip=True).strip()
     a = soup.findAll('a')
-    # print(href)
-    # for i in href:
-        # print(i.get('href'))
+    # 获取所有href列表,并将空的值去除（若不去除，会影响影响到后面取索引）
+    """
+    这里遇到了一个坑：
+    for i, j in enumerate(a):
+        if not j:
+            a.pop(i)
+    print(a)
+    运行如上代码去除空字符串，始终会有一个空字符串不能删除，这是因为随着删除元素，列表的长度也会随着改变，循环并不会完全遍历整个列表，不妨调试一下就能真相大白！
+    """
     href = [i.get('href') for i in a if i.get('href') != '']
-    # href = [a.pop() for i in a if i == '']
-    print(href)
+    # 若href以‘/’开头，则加上协议，域名，若以‘#’开头，则加上url，否则返回href
     href = map(lambda i: proto + '//' + domain + i if i[0] == '/' else url + i if i[0] == '#' else i, href)
     print([i for i in href])
-    # with open('%s-content.txt' % my_url.replace('/', '-').replace(':', ''), 'w', encoding='utf-8') as f:
-        # f.write(content)
-        # print('html content has save in %s-content.txt' % my_url.replace('/', '-').replace(':', ''))
 
 
 if __name__ == '__main__':
-    my_url = 'https://github.com/Yixiaohan/show-me-the-code' # input("please input a url you want to get content: ")
+    my_url = 'https://github.com/weixianglin' # input("please input a url you want to get content: ")
     scrap(my_url)
