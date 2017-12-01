@@ -13,10 +13,16 @@ def do_loop(file):
         word_list = list(map(lambda i: i.strip(), f.readlines()))
         while 1:
             in_word = input('>>>')
-            if in_word in word_list:
+            # 改进判断逻辑
+            if any([i in in_word for i in word_list]):
                 print('Freedom')
             else:
                 print('Human Right')
+            # 使用下面这种并不能判断一个句子是包含有敏感词
+            # if in_word in word_list:
+            #     print('Freedom')
+            # else:
+            #     print('Human Right')
 
 
 if __name__ == '__main__':
