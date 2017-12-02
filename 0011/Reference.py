@@ -21,12 +21,8 @@ class CLI(cmd.Cmd):
 
     def default(self, line):
         if any([i in line for i in self.words]):
-            print(line)
-            print([i in line for i in self.words])
             print('Freedom')
         else:
-            print(line)
-            print([i in line for i in self.words])
             print('Human Rights')
 
     def do_quit(self, arg):
