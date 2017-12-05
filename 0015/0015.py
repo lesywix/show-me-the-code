@@ -18,7 +18,7 @@ filepath = 'f:/work2/leetcode/show me code/0015'
 def run():
     os.chdir(filepath)
     # 读取文件内容
-    with open('city.txt') as f:
+    with open('city.txt', encoding='utf-8') as f:
         content = f.read()
     # 转为json, 注意转化后的dict的元素位置和转化前可能会不一致，因此要使用OrderedDict
     d = json.loads(content, object_pairs_hook=OrderedDict)
